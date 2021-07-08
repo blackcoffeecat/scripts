@@ -52,9 +52,12 @@ sudo sed -i '7 a load_module modules/ngx_http_brotli_filter_module.so;' /etc/ngi
 sudo sed -i '7 a load_module modules/ngx_http_brotli_static_module.so;' /etc/nginx/nginx.conf
 
 sudo curl -o /etc/nginx/conf.d/nginx.http.conf https://blackcoffeecat.github.io/scripts/nginx.http.conf
+sudo openssl dhparam -out /etc/nginx/dhparam.pem 4096
 
 curl -fsSL https://blackcoffeecat.github.io/scripts/upgrade-nginx.sh | bash -
 
-sudo nginx -t && sudo systemctl restart nginx || ehco "debian-init: nginx config test fail."
+sudo nginx -t && sudo systemctl restart nginx || echo "debian-init: nginx config test fail."
+
+echo -e "BLACKCOFFEECAT=1\nNODE_ENV=production" | sudo tee -a /etc/environment
 
 echo "debian-init: DONE!"
