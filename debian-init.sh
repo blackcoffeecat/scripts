@@ -30,7 +30,7 @@ echo -e "deb-src http://ftp.debian.org/debian $CODENAME-backports main contrib n
 
 # https://wiki.postgresql.org/wiki/Apt#Quickstart
 curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $CODENAME-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 
 sudo apt update
 sudo DEBIAN_FRONTEND='noninteractive' \
@@ -48,9 +48,13 @@ sudo apt-get autoremove -y
 sudo apt-get clean
 sudo apt-get autoclean
 
-sudo sed '5 a load_module modules/ngx_http_brotli_filter_module.so;' /etc/nginx/nginx.conf
-sudo sed '5 a load_module modules/ngx_http_brotli_static_module.so;' /etc/nginx/nginx.conf
+sudo sed -i '7 a load_module modules/ngx_http_brotli_filter_module.so;' /etc/nginx/nginx.conf
+sudo sed -i '7 a load_module modules/ngx_http_brotli_static_module.so;' /etc/nginx/nginx.conf
 
 sudo curl -o /etc/nginx/conf.d/nginx.http.conf https://blackcoffeecat.github.io/scripts/nginx.http.conf
 
 curl -fsSL https://blackcoffeecat.github.io/scripts/upgrade-nginx.sh | bash -
+
+sudo nginx -t && sudo systemctl restart nginx || ehco "debian-init: nginx config test fail."
+
+echo "debian-init: DONE!"
