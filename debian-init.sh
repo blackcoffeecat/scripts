@@ -44,9 +44,9 @@ sudo apt install --allow-downgrades -y \
   git wget brotli libcurl3-gnutls/stable \
   build-essential libpcre3 libpcre3-dev zlib1g-dev
 
-apt-get autoremove -y
-apt-get clean
-apt-get autoclean
+sudo apt-get autoremove -y
+sudo apt-get clean
+sudo apt-get autoclean
 
 sudo sed '5 a load_module modules/ngx_http_brotli_filter_module.so;' /etc/nginx/nginx.conf
 sudo sed '5 a load_module modules/ngx_http_brotli_static_module.so;' /etc/nginx/nginx.conf
