@@ -1,13 +1,14 @@
 #!/bin/bash
 
+sudo apt install curl git wget gnupg2 ca-certificates lsb-release geoip-bin -y
+
 # https://github.com/nodesource/distributions#debinstall
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-
-sudo apt install curl gnupg2 ca-certificates lsb-release nodejs geoip-bin -y
+sudo apt install nodejs -y
 
 IP="$(curl -s icanhazip.com)"
 GEOLOCATION="$(geoiplookup "$IP")"
-COUNTRY="$(node -e "console.log('$GEOLOCATION'.match(/: ([A-Z]+),/)[1])")"
+COUNTRY="$(node -p "'$GEOLOCATION'.match(/: ([A-Z]+),/)[1]")"
 
 CODENAME="$(lsb_release -cs)"
 
@@ -16,6 +17,8 @@ echo "deb http://nginx.org/packages/mainline/debian $CODENAME nginx" \
   | sudo tee /etc/apt/sources.list.d/nginx.list
 echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
   | sudo tee /etc/apt/preferences.d/99nginx
+echo -e "Package: libcurl3-gnutls\nPin: version 7.64.*\nPin-Priority: 900\n" \
+  | sudo tee /etc/apt/preferences.d/99curl
 curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
 mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
@@ -40,8 +43,7 @@ sudo DEBIAN_FRONTEND='noninteractive' \
   upgrade
 
 sudo apt install --allow-downgrades -y \
-  nginx mariadb-server postgresql \
-  git wget brotli libcurl3-gnutls/stable \
+  nginx mariadb-server postgresql brotli \
   build-essential libpcre3 libpcre3-dev zlib1g-dev
 
 sudo apt-get autoremove -y
