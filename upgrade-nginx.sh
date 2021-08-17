@@ -16,6 +16,3 @@ cd "../nginx-$NGINXVER"
 make
 
 sudo cp objs/*.so /etc/nginx/modules
-
-cd /tmp
-rm -rf "nginx-$NGINXVER" "ngx_brotli"
