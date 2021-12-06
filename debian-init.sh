@@ -74,6 +74,7 @@ sudo curl -o /etc/nginx/conf.d/00nginx.http.conf https://blackcoffeecat.github.i
 curl -fsSL https://blackcoffeecat.github.io/scripts/upgrade-nginx.sh | bash -
 
 sudo nginx -t && sudo systemctl restart nginx || echo "debian-init: nginx config test fail."
+sudo ufw disable || echo "no ufw"
 
 echo -e "BLACKCOFFEECAT=1 \n" \
  "NODE_ENV=production \n" \
