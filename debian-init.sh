@@ -80,4 +80,6 @@ echo -e "BLACKCOFFEECAT=1 \n" \
  "NODE_ENV=production \n" \
  | sudo tee -a /etc/environment
 
+echo "%sudo   ALL=(ALL:ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/nopasswd
+
 echo "debian-init: DONE!"
