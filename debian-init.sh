@@ -77,8 +77,8 @@ curl -fsSL https://blackcoffeecat.github.io/scripts/upgrade-nginx.sh | bash -
 sudo nginx -t && sudo systemctl restart nginx || echo "debian-init: nginx config test fail."
 sudo ufw disable || echo "no ufw"
 
-echo -e "BLACKCOFFEECAT=1\n" \
- "NODE_ENV=production\n" \
- | sudo tee -a /etc/environment
+echo -e "BLACKCOFFEECAT=1\n" | sudo tee -a /etc/environment
+echo -e "NODE_ENV=production\n" | sudo tee -a /etc/environment
+
 
 echo "debian-init: DONE!"
