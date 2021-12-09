@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "%sudo   ALL=(ALL:ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/nopasswd
 echo -e "nameserver  223.5.5.5 \n" "nameserver  1.1.1.1 \n" | sudo tee -a /etc/resolv.conf
 
 sudo apt install curl git wget gnupg2 ca-certificates lsb-release geoip-bin -y
@@ -79,7 +80,5 @@ sudo ufw disable || echo "no ufw"
 echo -e "BLACKCOFFEECAT=1 \n" \
  "NODE_ENV=production \n" \
  | sudo tee -a /etc/environment
-
-echo "%sudo   ALL=(ALL:ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/nopasswd
 
 echo "debian-init: DONE!"
