@@ -3,7 +3,7 @@
 echo "%sudo   ALL=(ALL:ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/nopasswd
 echo -e "nameserver  223.5.5.5 \n" "nameserver  1.1.1.1 \n" | sudo tee -a /etc/resolv.conf
 
-sudo apt install curl git wget gnupg2 ca-certificates lsb-release geoip-bin -y
+sudo apt install curl git wget gnupg2 ca-certificates lsb-release geoip-bin unzip htop iftop -y
 
 # https://github.com/nodesource/distributions#debinstall
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
