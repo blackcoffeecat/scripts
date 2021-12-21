@@ -53,15 +53,15 @@ echo "deb http://apt.postgresql.org/pub/repos/apt $CODENAME-pgdg main" |
   sudo tee -a /etc/apt/sources.list.d/pgdg.list
 
 sudo apt update
+sudo apt install --allow-downgrades -y \
+  nginx brotli \
+  build-essential libpcre3 libpcre3-dev zlib1g-dev
+
 sudo DEBIAN_FRONTEND='noninteractive' \
   apt -y \
   -o Dpkg::Options::='--force-confdef' \
   -o Dpkg::Options::='--force-confold' \
   upgrade
-
-sudo apt install --allow-downgrades -y \
-  nginx brotli \
-  build-essential libpcre3 libpcre3-dev zlib1g-dev
 
 sudo apt-get autoremove -y
 sudo apt-get clean
