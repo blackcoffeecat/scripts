@@ -36,8 +36,8 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 echo -e "Package: libcurl3-gnutls\nPin: version 7.64.*\nPin-Priority: 900\n" |
   sudo tee /etc/apt/preferences.d/00curl
 curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
-gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
-mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
+sudo gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
+sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
 
 # https://unix.stackexchange.com/questions/310222/
 echo -e "Package: *\nPin: release a=$CODENAME-backports\nPin-Priority: 800\n" |
