@@ -7,7 +7,7 @@ type="A"
 
 CF_Api="https://api.cloudflare.com/client/v4"
 
-if [[ $address =~ '^([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}$' ]]; then
+if [[ $address =~ ^([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}$ ]]; then
   type = "AAAA";
 fi
 
