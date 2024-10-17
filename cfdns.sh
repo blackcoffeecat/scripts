@@ -8,7 +8,7 @@ type="A"
 CF_Api="https://api.cloudflare.com/client/v4"
 
 if [[ $address =~ ^([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}$ ]]; then
-  type = "AAAA";
+  type="AAAA";
 fi
 
 record="{\"name\": \"$fulldomain\",\"type\": \"$type\",\"content\": \"$address\",\"ttl\": 1,\"proxied\": false}"
