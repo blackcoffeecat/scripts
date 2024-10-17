@@ -123,7 +123,7 @@ _get_root() {
 
 if ! _get_root "$fulldomain"; then
   _err "invalid domain"
-  return 1
+  exit 1
 fi
 
 _cf_rest GET "zones/$_zone_id/dns_records?type=$type&name=$fulldomain"
