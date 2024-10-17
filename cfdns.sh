@@ -56,9 +56,9 @@ _post() {
   fi
  
   if [ "$body" ]; then
-    response="$($_CURL -X $httpmethod -H \"Content-Type: application/json\" -H \"Authorization: Bearer $(echo "$CF_Token" | tr -d '"')\" --data "$body" "$_post_url")"
+    response="$($_CURL -X $httpmethod -H "Content-Type: application/json" -H "Authorization: Bearer $(echo "$CF_Token" | tr -d '"')" --data "$body" "$_post_url")"
   else
-    response="$($_CURL -X $httpmethod -H \"Authorization: Bearer $(echo "$CF_Token" | tr -d '"')\" "$_post_url")"
+    response="$($_CURL -X $httpmethod -H "Authorization: Bearer $(echo "$CF_Token" | tr -d '"')" "$_post_url")"
   fi
   
   _ret="$?"
@@ -70,7 +70,7 @@ _get() {
   url="$1"
   t="$3"
 
-  $_CURL -H \"Authorization: Bearer $(echo "$CF_Token" | tr -d '"')\"  "$url"
+  $_CURL -H "Authorization: Bearer $(echo "$CF_Token" | tr -d '"')"  "$url"
   ret=$?
   return $ret
 }
