@@ -122,7 +122,7 @@ _get_root() {
 }
 
 if ! _get_root "$fulldomain"; then
-  _err "invalid domain"
+  echo "invalid domain"
   exit 1
 fi
 
