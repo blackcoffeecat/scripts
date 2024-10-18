@@ -1,10 +1,10 @@
 #!/bin/bash
 
-NGINXVER="$(sudo nginx -v 2>&1)"
-NGINXVER="$(node -e "console.log('$NGINXVER'.match(/nginx\/([\d\.]+)$/)[1])")"
+NGINXVER="$(nginx -v 2>&1 | cut -d "/" -f 2)"
 FILENAME="nginx-$NGINXVER.tar.gz"
 
-cd /tmp
+mkdir /tmp/ngxbrotli
+cd /tmp/ngxbrotli
 wget "http://nginx.org/download/$FILENAME"
 tar zxf "$FILENAME"
 git clone https://github.com/google/ngx_brotli.git

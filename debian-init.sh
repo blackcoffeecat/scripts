@@ -70,7 +70,7 @@ sudo apt-get autoclean
 
 sudo curl -o /etc/nginx/conf.d/00.nginx.http.conf https://blackcoffeecat.github.io/scripts/nginx.http.conf
 
-curl -fsSL https://blackcoffeecat.github.io/scripts/upgrade-nginx.sh | bash -
+curl -s https://blackcoffeecat.github.io/scripts/ngx-patch/brotli.sh | bash -
 sudo sed -i '7 a load_module modules/ngx_http_brotli_filter_module.so;' /etc/nginx/nginx.conf
 sudo sed -i '7 a load_module modules/ngx_http_brotli_static_module.so;' /etc/nginx/nginx.conf
 
