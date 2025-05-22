@@ -1,6 +1,6 @@
 #!/bin/bash
-# bjq - A simplified jq-like tool implemented in bash for basic JSON parsing
-# Usage: curl -s https://blackcoffeecat.github.io/scripts/bjq.sh | bash -s -- [options] <query> [JSON string]
+# jq - A simplified jq-like tool implemented in bash for basic JSON parsing
+# Usage: curl -s https://blackcoffeecat.github.io/scripts/jq.sh | bash -s -- [options] <query> [JSON string]
 
 # Parse command line arguments
 raw_output=false
@@ -11,13 +11,13 @@ json_input=""
 # Display help information
 show_help() {
   cat << EOF
-bjq - A simplified jq-like tool implemented in bash for basic JSON parsing
+jq - A simplified jq-like tool implemented in bash for basic JSON parsing
 
 Usage: 
-  curl -s https://your-cdn-url/bjq.sh | bash -s -- [options] <query> '[JSON string]'
+  curl -s https://your-cdn-url/jq.sh | bash -s -- [options] <query> '[JSON string]'
   or
-  curl -s https://your-cdn-url/bjq.sh > bjq.sh && chmod +x bjq.sh
-  ./bjq.sh [options] <query> '[JSON string]'
+  curl -s https://your-cdn-url/jq.sh > jq.sh && chmod +x jq.sh
+  ./jq.sh [options] <query> '[JSON string]'
 
 Options:
   -h, --help     Display this help information
@@ -33,9 +33,9 @@ Query syntax:
   .[]           Expand all elements in an array
 
 Examples:
-  curl -s https://your-cdn-url/bjq.sh | bash -s -- . '{"name":"John"}'
-  curl -s https://your-cdn-url/bjq.sh | bash -s -- .name '{"name":"John"}'
-  echo '{"name":"John"}' | curl -s https://your-cdn-url/bjq.sh | bash -s -- .name
+  curl -s https://your-cdn-url/jq.sh | bash -s -- . '{"name":"John"}'
+  curl -s https://your-cdn-url/jq.sh | bash -s -- .name '{"name":"John"}'
+  echo '{"name":"John"}' | curl -s https://your-cdn-url/jq.sh | bash -s -- .name
 EOF
   exit 0
 }
