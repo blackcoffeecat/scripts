@@ -13,7 +13,6 @@ DEBUG=false
 SCRIPT_CDN="${SCRIPT_CDN:-"https://blackcoffeecat.github.io/scripts"}"
 GITHUB_API="${GITHUB_API:-"https://api.github.com"}"
 VERSION_FILE="version"
-
 # Parse arguments
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -25,7 +24,23 @@ done
 # Debug function
 debug() {
     if [ "$DEBUG" = true ]; then
-        echo "[DEBUG] $1"
+        echo "[DEBUG] $1" >&2
+    fi
+}
+
+# Function to check if a command is available
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to use local jq or fallback to online jq.sh
+use_jq() {
+    if command_exists jq; then
+        debug "Using local jq"
+        jq "$@"
+    else
+        debug "Using online jq.sh"
+        curl -s $SCRIPT_CDN/jq.sh | bash -s -- "$@"
     fi
 }
 
@@ -51,8 +66,7 @@ download_file() {
 # Function to get latest release version and assets
 get_latest_release() {
     debug "Fetching latest release information"
-    curl -s "$GITHUB_API/repos/$REPO/releases/latest" | \
-    curl -s $SCRIPT_CDN/bjq.sh | bash -s -- .
+    curl -s "$GITHUB_API/repos/$REPO/releases/latest"
 }
 
 # Get current version
@@ -61,10 +75,11 @@ debug "Current version: $current_version"
 
 # Get latest release information
 release_info=$(get_latest_release)
+echo "$release_info" > "$DOWNLOAD_DIR/release_info.json"
 debug "Fetched release information"
 
 # Extract latest version
-latest_version=$(echo "$release_info" | curl -s $SCRIPT_CDN/bjq.sh | bash -s -- .tag_name)
+latest_version=$(echo "$release_info" | use_jq -r .tag_name)
 debug "Latest version: $latest_version"
 
 # Compare versions
@@ -119,7 +134,7 @@ get_platform_arch() {
 
 # Download assets
 debug "Starting asset download"
-echo "$release_info" | curl -s $SCRIPT_CDN/bjq.sh | bash -s -- '.assets[].browser_download_url' | while read -r url; do
+echo "$release_info" | use_jq -r '.assets[].browser_download_url' | while read -r url; do
     filename=$(basename "$url")
     debug "Processing asset: $filename"
     read -r platform arch ext < <(get_platform_arch "$filename")
