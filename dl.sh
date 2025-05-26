@@ -127,8 +127,11 @@ echo "$release_info" | jq -r '.assets[].browser_download_url' | while read -r ur
     filename=$(basename "$url")
     debug "Processing asset: $filename"
     read -r platform arch ext < <(get_platform_arch "$filename")
-    
-    if [[ "$platform" != "unknown" && "$arch" != "unknown" ]]; then
+
+    if [[ "$filename" =~ compatible|go120|go123|tar ]]; then
+        echo "Skipping $filename (unknown platform or architecture)"
+        debug "Skipped $filename due to unknown platform or architecture"
+    elif [[ "$platform" != "unknown" && "$arch" != "unknown" ]]; then
         output_file="$DOWNLOAD_DIR/${platform}_${arch}${ext}"
         echo "Downloading $filename as $output_file"
         download_file "$url" "$output_file"
