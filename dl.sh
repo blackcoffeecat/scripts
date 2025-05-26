@@ -13,6 +13,7 @@ DEBUG=false
 SCRIPT_CDN="${SCRIPT_CDN:-"https://blackcoffeecat.github.io/scripts"}"
 GITHUB_API="${GITHUB_API:-"https://api.github.com"}"
 VERSION_FILE="version"
+arch=""
 # Parse arguments
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -101,10 +102,10 @@ get_platform_arch() {
     fi
 
     # Determine architecture
-    if [[ "$filename" =~ amd64|x64|64 ]]; then
-        arch="x64"
-    elif [[ "$filename" =~ arm64|armv8 ]]; then
+    if [[ "$filename" =~ arm64|armv8 ]]; then
         arch="arm64"
+    elif [[ "$filename" =~ amd64|x64|64 ]]; then
+        arch="x64"
     else
         arch="unknown"
     fi
