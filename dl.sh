@@ -33,17 +33,6 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Function to use local jq or fallback to online jq.sh
-use_jq() {
-    if command_exists jq; then
-        debug "Using local jq"
-        jq "$@"
-    else
-        debug "Using online jq.sh"
-        curl -s $SCRIPT_CDN/jq.sh | bash -s -- "$@"
-    fi
-}
-
 # Validate input
 if [ -z "$REPO" ]; then
     echo "Error: Repository not specified."
@@ -79,7 +68,7 @@ echo "$release_info" > "$DOWNLOAD_DIR/release_info.json"
 debug "Fetched release information"
 
 # Extract latest version
-latest_version=$(echo "$release_info" | use_jq -r .tag_name)
+latest_version=$(echo "$release_info" | jq -r .tag_name)
 debug "Latest version: $latest_version"
 
 # Compare versions
@@ -134,7 +123,7 @@ get_platform_arch() {
 
 # Download assets
 debug "Starting asset download"
-echo "$release_info" | use_jq -r '.assets[].browser_download_url' | while read -r url; do
+echo "$release_info" | jq -r '.assets[].browser_download_url' | while read -r url; do
     filename=$(basename "$url")
     debug "Processing asset: $filename"
     read -r platform arch ext < <(get_platform_arch "$filename")
