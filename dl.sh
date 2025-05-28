@@ -128,7 +128,7 @@ echo "$release_info" | jq -r '.assets[].browser_download_url' | while read -r ur
     debug "Processing asset: $filename"
     read -r platform arch ext < <(get_platform_arch "$filename")
 
-    if [[ "$filename" =~ compatible|go120|go123|tar ]]; then
+    if [[ "$filename" =~ compatible|go120|go123|pkg ]]; then
         echo "Skipping $filename (unknown platform or architecture)"
         debug "Skipped $filename due to unknown platform or architecture"
     elif [[ "$platform" != "unknown" && "$arch" != "unknown" ]]; then
