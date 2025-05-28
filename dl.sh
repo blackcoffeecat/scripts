@@ -13,7 +13,6 @@ DEBUG=false
 SCRIPT_CDN="${SCRIPT_CDN:-"https://blackcoffeecat.github.io/scripts"}"
 GITHUB_API="${GITHUB_API:-"https://api.github.com"}"
 VERSION_FILE="version"
-arch=""
 # Parse arguments
 while [[ "$#" -gt 0 ]]; do
     case $1 in
