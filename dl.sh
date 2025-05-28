@@ -113,6 +113,8 @@ get_platform_arch() {
     ext="${filename##*.}"
     if [[ "$ext" == "$filename" ]]; then
         ext=""
+    if [[ "$filename" =~ \.tar\.gz$ ]]; then
+        ext="tgz"
     else
         ext=".$ext"
     fi
