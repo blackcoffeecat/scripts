@@ -65,7 +65,6 @@ debug "Current version: $current_version"
 
 # Get latest release information
 release_info=$(get_latest_release)
-echo "$release_info" > "$DOWNLOAD_DIR/release_info.json"
 debug "Fetched release information"
 
 # Extract latest version
@@ -84,6 +83,7 @@ debug "New version detected"
 # Create download directory if it doesn't exist
 mkdir -p "$DOWNLOAD_DIR"
 debug "Created download directory: $DOWNLOAD_DIR"
+echo "$release_info" > "$DOWNLOAD_DIR/release_info.json"
 
 # Function to determine platform and architecture from filename
 get_platform_arch() {
