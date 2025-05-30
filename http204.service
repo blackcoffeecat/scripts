@@ -1,0 +1,10 @@
+[Unit]
+Description=Minimal HTTP 204 server using socat
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/socat TCP-LISTEN:8080,crlf,reuseaddr,fork SYSTEM:"echo HTTP/1.1 204 No Content; echo Content-Length\: 0; echo '';"
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
