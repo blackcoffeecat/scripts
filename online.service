@@ -1,0 +1,12 @@
+[Unit]
+Description=Network online
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/user/sh/startup.sh
+Restart=no
+
+[Install]
+WantedBy=network-online.target
